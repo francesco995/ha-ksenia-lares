@@ -1,7 +1,7 @@
 """Constants for the Ksenia Lares Alarm integration."""
 
 DOMAIN = "ksenia_lares"
-DEFAULT_TIMEOUT = 10
+DEFAULT_TIMEOUT = 1
 
 ZONE_STATUS_ALARM = "ALARM"
 ZONE_STATUS_NORMAL = "NORMAL"
