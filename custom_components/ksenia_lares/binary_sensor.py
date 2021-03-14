@@ -43,7 +43,7 @@ async def async_setup_entry(hass, config_entry, async_add_devices):
         if config_entry.data["rate"] is None:
             rate = DEFAULT_TIMEOUT
         else:
-            rate = config_entry.data["rate"]
+            rate = int(config_entry.data["rate"])
 
         async with async_timeout.timeout(rate):
             return await client.zones()
