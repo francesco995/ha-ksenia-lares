@@ -48,6 +48,8 @@ async def async_setup_entry(hass, config_entry, async_add_devices):
     else:
         interval = timedelta(seconds=int(config_entry.data["rate"]))
 
+    _LOGGER.info("setting interval to %i seconds", interval.seconds)
+
     coordinator = DataUpdateCoordinator(
         hass,
         _LOGGER,
