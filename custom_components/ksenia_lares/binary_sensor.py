@@ -24,7 +24,7 @@ from .base import LaresBase
 
 _LOGGER = logging.getLogger(__name__)
 
-SCAN_INTERVAL = timedelta(seconds=10)
+DEFAULT_SCAN_INTERVAL = 10
 
 DEFAULT_DEVICE_CLASS = "motion"
 DOOR_DEVICE_CLASS = "door"
@@ -39,21 +39,21 @@ async def async_setup_entry(hass, config_entry, async_add_devices):
     async def async_update_data():
         """Perform the actual updates."""
 
-        rate = None
-        if config_entry.data["rate"] is None:
-            rate = DEFAULT_TIMEOUT
-        else:
-            rate = int(config_entry.data["rate"])
-
-        async with async_timeout.timeout(rate):
+        async with async_timeout.timeout(DEFAULT_TIMEOUT):
             return await client.zones()
+
+    interval = None
+    if config_entry.data["rate"] is None:
+        interval = timedelta(seconds=DEFAULT_SCAN_INTERVAL)
+    else:
+        interval = timedelta(seconds=int(config_entry.data["rate"]))
 
     coordinator = DataUpdateCoordinator(
         hass,
         _LOGGER,
         name="lares_zones",
         update_method=async_update_data,
-        update_interval=SCAN_INTERVAL,
+        update_interval=interval,
     )
 
     # Fetch initial data so we have data when entities subscribe
