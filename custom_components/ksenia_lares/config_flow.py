@@ -11,7 +11,7 @@ from .base import LaresBase
 _LOGGER = logging.getLogger(__name__)
 
 # TODO adjust the data schema to the data that you need
-STEP_USER_DATA_SCHEMA = vol.Schema({"host": str, "username": str, "password": str, "port": str})
+STEP_USER_DATA_SCHEMA = vol.Schema({"host": str, "username": str, "password": str, "port": str, "rate": str})
 
 
 async def validate_input(hass: core.HomeAssistant, data):

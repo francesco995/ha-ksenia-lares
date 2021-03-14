@@ -39,7 +39,13 @@ async def async_setup_entry(hass, config_entry, async_add_devices):
     async def async_update_data():
         """Perform the actual updates."""
 
-        async with async_timeout.timeout(DEFAULT_TIMEOUT):
+        rate = None
+        if config_entry.data["rate"] is None:
+            rate = DEFAULT_TIMEOUT
+        else:
+            rate = config_entry.data["rate"]
+
+        async with async_timeout.timeout(rate):
             return await client.zones()
 
     coordinator = DataUpdateCoordinator(
