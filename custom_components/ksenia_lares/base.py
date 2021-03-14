@@ -18,9 +18,12 @@ class LaresBase:
         username = data["username"]
         password = data["password"]
         host = data["host"]
+        port = data["port"]
+        if port is None:
+            port = "4202"
 
         self._auth = aiohttp.BasicAuth(username, password)
-        self._host = f"http://{host}:4202"
+        self._host = f"http://{host}:{port}"
 
     async def info(self):
         """Get device info"""
