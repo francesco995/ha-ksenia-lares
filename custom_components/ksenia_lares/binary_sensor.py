@@ -61,9 +61,13 @@ async def async_setup_entry(hass, config_entry, async_add_devices):
     # Fetch initial data so we have data when entities subscribe
     await coordinator.async_refresh()
 
+    def filter_active_sensors(sensor):
+        _LOGGER.info("filter_active_sensors %s", sensor)
+        return sensor[1]["status"] != ZONE_STATUS_NOT_USED
+
     async_add_devices(
         LaresSensor(coordinator, idx, descriptions[idx])
-        for idx, zone in enumerate(coordinator.data)
+        for idx, zone in filter(filter_active_sensors, enumerate(coordinator.data))
     )
 
 
