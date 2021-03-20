@@ -92,6 +92,7 @@ class LaresBase:
             {
                 "status": zone.find("status").text,
                 "value": zone.find("value").text,
+                "type": zone.find("type").text,
             }
             for zone in zones
         ]
