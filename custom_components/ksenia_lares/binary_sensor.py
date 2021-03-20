@@ -105,6 +105,6 @@ class LaresSensor(CoordinatorEntity, BinarySensorEntity):
         """Return the class of this device."""
         return DEFAULT_DEVICE_CLASS
 
-    @@property
+    @property
     def enabled(self):
         return self._coordinator.data[self._idx]["status"] != ZONE_STATUS_NOT_USED
