@@ -68,6 +68,35 @@ class LaresBase:
             for zone in zones
         ]
 
+    async def outputDescriptions(self):
+        """Get available outputs"""
+        response = await self.get("outputs/outputsDescription48IP.xml")
+
+        if response is None:
+            return None
+
+        zones = response.xpath("/outputsDescription/output")
+
+        return [zone.text for zone in zones]
+
+    async def outputs(self):
+        """Get available zones"""
+        response = await self.get("outputs/outputsStatus48IP.xml")
+
+        if response is None:
+            return None
+
+        zones = response.xpath("/outputsStatus/output")
+
+        return [
+            {
+                "status": zone.find("status").text,
+                "value": zone.find("value").text,
+            }
+            for zone in zones
+        ]
+
+
     async def get(self, path):
         """Generic send method."""
         url = f"{self._host}/xml/{path}"
