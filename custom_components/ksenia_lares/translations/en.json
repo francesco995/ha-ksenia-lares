@@ -15,7 +15,8 @@
                     "password": "Password",
                     "username": "Username",
                     "port": "Port",
-                    "rate": "Update Rate"
+                    "rate": "Update Rate",
+                    "pin": "PIN"
                 }
             }
         }
