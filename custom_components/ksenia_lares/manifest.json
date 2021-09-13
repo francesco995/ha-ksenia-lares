@@ -1,5 +1,6 @@
 {
   "domain": "ksenia_lares",
+  "version": "0.0.1",
   "name": "Ksenia Lares Alarm",
   "config_flow": true,
   "documentation": "https://www.home-assistant.io/integrations/ksenia_lares",
