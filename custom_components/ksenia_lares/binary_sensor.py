@@ -2,11 +2,14 @@
 import asyncio
 import datetime
 import logging
+from typing import Any
+
 import async_timeout
 
 from datetime import timedelta
 
 from homeassistant.components.binary_sensor import BinarySensorEntity
+from homeassistant.components.switch import SwitchEntity
 
 from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
@@ -35,12 +38,19 @@ async def async_setup_entry(hass, config_entry, async_add_devices):
 
     client = LaresBase(config_entry.data)
     descriptions = await client.zoneDescriptions()
+    partitionsDescriptions = await client.partitions()
 
     async def async_update_data():
         """Perform the actual updates."""
 
         async with async_timeout.timeout(DEFAULT_TIMEOUT):
             return await client.zones()
+
+    async def async_update_partitions():
+        """Perform the actual updates."""
+
+        async with async_timeout.timeout(DEFAULT_TIMEOUT):
+            return await client.partitionsStatus()
 
     interval = None
     if "rate" in config_entry.data and config_entry.data["rate"] is not None:
@@ -68,6 +78,25 @@ async def async_setup_entry(hass, config_entry, async_add_devices):
     async_add_devices(
         LaresSensor(coordinator, idx, descriptions[idx])
         for idx, zone in filter(filter_active_sensors, enumerate(coordinator.data))
+    )
+
+    coordinator_partitions = DataUpdateCoordinator(
+        hass,
+        _LOGGER,
+        name="lares_partitions",
+        update_method=async_update_partitions,
+        update_interval=interval,
+    )
+
+    await coordinator_partitions.async_refresh()
+
+    def filter_active_partition(partition):
+        _LOGGER.info("filter_active_partition %s", partition)
+        return True
+
+    async_add_devices(
+        LaresPartition(coordinator_partitions, idx, partitionsDescriptions[idx])
+        for idx, zone in filter(filter_active_partition, enumerate(coordinator.data))
     )
 
 
@@ -112,3 +141,38 @@ class LaresSensor(CoordinatorEntity, BinarySensorEntity):
     @property
     def enabled(self):
         return self._coordinator.data[self._idx]["status"] != ZONE_STATUS_NOT_USED
+
+
+class LaresPartition(CoordinatorEntity, BinarySensorEntity):
+
+    def __init__(self, coordinator, idx, description):
+        """Initialize a the switch."""
+        super().__init__(coordinator)
+
+        self._coordinator = coordinator
+        self._description = description
+        self._idx = idx
+
+    @property
+    def is_on(self):
+        """Return true if the binary sensor is on."""
+        return self._coordinator.data[self._idx] == "ARMED"
+
+    @property
+    def unique_id(self):
+        """Return Unique ID string."""
+        return f"lares_output_{self._idx}"
+
+    @property
+    def name(self):
+        """Return the name of this camera."""
+        return self._description
+
+    @property
+    def available(self):
+        """Return True if entity is available."""
+        return self._coordinator.data[self._idx]["type"] != ZONE_STATUS_NOT_USED
+
+    @property
+    def enabled(self):
+        return self._coordinator.data[self._idx]["type"] != ZONE_STATUS_NOT_USED
