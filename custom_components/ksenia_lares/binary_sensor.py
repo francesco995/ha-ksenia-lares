@@ -51,7 +51,8 @@ async def async_setup_entry(hass, config_entry, async_add_devices):
         """Perform the actual updates."""
 
         async with async_timeout.timeout(DEFAULT_TIMEOUT):
-            return await client.partitionsStatus()
+            status = await client.partitionsStatus()
+            return status[0, len(partitions_descriptions) - 1]
 
     interval = None
     if "rate" in config_entry.data and config_entry.data["rate"] is not None:
@@ -98,7 +99,7 @@ async def async_setup_entry(hass, config_entry, async_add_devices):
     async_add_devices(
         LaresPartition(coordinator_partitions, idx, partitions_descriptions[idx])
         for idx, zone in
-        filter(filter_active_partition, enumerate(coordinator_partitions.data[0, len(partitions_descriptions) - 1]))
+        filter(filter_active_partition, enumerate(coordinator_partitions.data))
     )
 
 
