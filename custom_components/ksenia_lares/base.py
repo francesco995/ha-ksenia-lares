@@ -99,6 +99,7 @@ class LaresBase:
 
     async def partitions(self):
         """Get available partitions"""
+        _LOGGER.info("Running get for partitions/partitionsDescription48IP.xml")
         response = await self.get("partitions/partitionsDescription48IP.xml")
 
         if response is None:
@@ -108,6 +109,7 @@ class LaresBase:
 
     async def partitionsStatus(self):
         """Get available partitions"""
+        _LOGGER.info("Running get for partitions/partitionsStatus48IP.xml")
         response = await self.get("partitions/partitionsStatus48IP.xml")
 
         if response is None:

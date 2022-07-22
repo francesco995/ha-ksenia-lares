@@ -21,9 +21,6 @@ from homeassistant.helpers.update_coordinator import (
 
 from .const import (
     DEFAULT_TIMEOUT,
-    ZONE_STATUS_ALARM,
-    ZONE_STATUS_NOT_USED,
-    ZONE_BYPASS_ON,
 )
 from .base import LaresBase
 
