@@ -97,6 +97,26 @@ class LaresBase:
             for zone in zones
         ]
 
+    async def partitions(self):
+        """Get available partitions"""
+        response = await self.get("partitions/partitionsDescription48IP.xml")
+
+        if response is None:
+            return None
+
+        return response.xpath("/partitionsDescription/partition")
+
+    async def partitionsStatus(self):
+        """Get available partitions"""
+        response = await self.get("partitions/partitionsStatus48IP.xml")
+
+        if response is None:
+            return None
+
+        return response.xpath("/partitionsStatus/partition")
+
+
+
     async def get(self, path):
         """Generic send method."""
         url = f"{self._host}/xml/{path}"
