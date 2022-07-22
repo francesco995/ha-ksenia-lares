@@ -109,8 +109,8 @@ class LaresBase:
         res = []
         for part in parts:
             _LOGGER.info("part {p}".format(p=part))
-            if part:
-                res.append(part)
+            if part.text:
+                res.append(part.text)
         return res
 
     async def partitionsStatus(self):
