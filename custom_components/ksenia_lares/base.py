@@ -116,8 +116,8 @@ class LaresBase:
         if response is None:
             return None
 
-        return response.xpath("/partitionsStatus/partition")
-
+        parts = response.xpath("/partitionsStatus/partition")
+        return [part.text for part in parts]
 
 
     async def get(self, path):
