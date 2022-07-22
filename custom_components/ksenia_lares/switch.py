@@ -8,8 +8,8 @@ import async_timeout
 
 from datetime import timedelta
 
-from homeassistant.components.binary_sensor import BinarySensorEntity
-from homeassistant.components.switch import SwitchEntity
+from homeassistant.components.siren import SirenEntity
+from homeassistant.components.switch import DEVICE_CLASSES
 
 from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
@@ -29,7 +29,7 @@ _LOGGER = logging.getLogger(__name__)
 
 DEFAULT_SCAN_INTERVAL = 10
 
-DEFAULT_DEVICE_CLASS = "switch"
+DEFAULT_DEVICE_CLASS = "siren"
 
 
 async def async_setup_entry(hass, config_entry, async_add_devices):
@@ -73,7 +73,13 @@ async def async_setup_entry(hass, config_entry, async_add_devices):
     )
 
 
-class LaresOutput(CoordinatorEntity, BinarySensorEntity):
+class LaresOutput(CoordinatorEntity, SirenEntity):
+
+    def turn_on(self, **kwargs: Any) -> None:
+        pass
+
+    def turn_off(self, **kwargs: Any) -> None:
+        pass
 
     def __init__(self, coordinator, idx, description):
         """Initialize a the switch."""
