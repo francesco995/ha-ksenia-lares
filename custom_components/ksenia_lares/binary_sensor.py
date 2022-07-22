@@ -38,7 +38,8 @@ async def async_setup_entry(hass, config_entry, async_add_devices):
 
     client = LaresBase(config_entry.data)
     descriptions = await client.zoneDescriptions()
-    partitionsDescriptions = await client.partitions()
+    partitions_descriptions = await client.partitions()
+    _LOGGER.info("There are {num} partitions".format(num=len(partitions_descriptions)))
 
     async def async_update_data():
         """Perform the actual updates."""
@@ -95,8 +96,9 @@ async def async_setup_entry(hass, config_entry, async_add_devices):
         return True
 
     async_add_devices(
-        LaresPartition(coordinator_partitions, idx, partitionsDescriptions[idx])
-        for idx, zone in filter(filter_active_partition, enumerate(coordinator_partitions.data[0, len(partitionsDescriptions) - 1]))
+        LaresPartition(coordinator_partitions, idx, partitions_descriptions[idx])
+        for idx, zone in
+        filter(filter_active_partition, enumerate(coordinator_partitions.data[0, len(partitions_descriptions) - 1]))
     )
 
 
