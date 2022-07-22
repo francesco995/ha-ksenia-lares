@@ -228,7 +228,7 @@ class LaresOutput(CoordinatorEntity, BinarySensorEntity):
     @property
     def is_on(self):
         """Return the state of the sensor."""
-        return self._coordinator.data[self._idx]["value"] == 1
+        return self._coordinator.data[self._idx]["status"] == "ON"
 
     @property
     def available(self):
