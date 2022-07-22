@@ -8,8 +8,7 @@ import async_timeout
 
 from datetime import timedelta
 
-from homeassistant.components.siren import SirenEntity
-from homeassistant.components.switch import DEVICE_CLASSES
+from homeassistant.components.switch import DEVICE_CLASSES, SwitchEntity
 
 from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
@@ -73,7 +72,7 @@ async def async_setup_entry(hass, config_entry, async_add_devices):
     )
 
 
-class LaresOutput(CoordinatorEntity, SirenEntity):
+class LaresOutput(CoordinatorEntity, SwitchEntity):
 
     def turn_on(self, **kwargs: Any) -> None:
         pass
