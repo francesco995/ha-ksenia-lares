@@ -8,6 +8,7 @@ import async_timeout
 
 from datetime import timedelta
 
+from homeassistant.components.binary_sensor import BinarySensorEntity
 from homeassistant.components.switch import SwitchEntity
 
 from homeassistant.helpers.update_coordinator import (
@@ -72,14 +73,7 @@ async def async_setup_entry(hass, config_entry, async_add_devices):
     )
 
 
-class LaresOutput(CoordinatorEntity, SwitchEntity):
-    """An implementation of a Lares door/window/motion sensor."""
-
-    def turn_on(self, **kwargs: Any) -> None:
-        pass
-
-    def turn_off(self, **kwargs: Any) -> None:
-        pass
+class LaresOutput(CoordinatorEntity, BinarySensorEntity):
 
     def __init__(self, coordinator, idx, description):
         """Initialize a the switch."""

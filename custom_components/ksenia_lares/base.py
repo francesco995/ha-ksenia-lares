@@ -97,7 +97,6 @@ class LaresBase:
             for zone in zones
         ]
 
-
     async def get(self, path):
         """Generic send method."""
         url = f"{self._host}/xml/{path}"
