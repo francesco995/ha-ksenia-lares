@@ -111,7 +111,7 @@ async def async_setup_entry(hass, config_entry, async_add_devices):
         hass,
         _LOGGER,
         name="lares_outputs",
-        update_method=async_update_partitions,
+        update_method=async_update_outputs,
         update_interval=interval,
     )
 
@@ -119,7 +119,7 @@ async def async_setup_entry(hass, config_entry, async_add_devices):
 
     def filter_active_output(output):
         _LOGGER.info("filter_active_output %s", output)
-        return True
+        return output[1]["type"] != ZONE_STATUS_NOT_USED
 
     async_add_devices(
         LaresOutput(coordinator_outputs, idx, outputs_descriptions[idx])
