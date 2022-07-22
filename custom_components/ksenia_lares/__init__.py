@@ -9,7 +9,7 @@ from homeassistant.core import HomeAssistant
 from .const import DOMAIN
 
 CONFIG_SCHEMA = vol.Schema({DOMAIN: vol.Schema({})}, extra=vol.ALLOW_EXTRA)
-PLATFORMS = ["binary_sensor", "switch"]
+PLATFORMS = ["binary_sensor", "switch", "partitions"]
 
 
 async def async_setup(hass: HomeAssistant, config: dict):

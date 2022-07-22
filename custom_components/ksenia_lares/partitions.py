@@ -66,7 +66,7 @@ async def async_setup_entry(hass, config_entry, async_add_devices):
     await coordinator.async_refresh()
 
     def filter_active_partition(sensor):
-        _LOGGER.info("filter_active_output %s", sensor)
+        _LOGGER.info("filter_active_partition %s", sensor)
         return True
 
     async_add_devices(
