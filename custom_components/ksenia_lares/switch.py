@@ -29,7 +29,7 @@ _LOGGER = logging.getLogger(__name__)
 
 DEFAULT_SCAN_INTERVAL = 10
 
-DEFAULT_DEVICE_CLASS = "siren"
+DEFAULT_DEVICE_CLASS = "switch"
 
 
 async def async_setup_entry(hass, config_entry, async_add_devices):
