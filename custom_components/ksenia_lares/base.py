@@ -106,7 +106,11 @@ class LaresBase:
             return None
 
         parts = response.xpath("/partitionsDescription/partition")
-        return [part.text for part in parts]
+        res = []
+        for part in parts:
+            if part:
+                res.append(part)
+        return res
 
     async def partitionsStatus(self):
         """Get available partitions"""
