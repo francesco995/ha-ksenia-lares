@@ -163,7 +163,7 @@ class LaresPartition(CoordinatorEntity, BinarySensorEntity):
     @property
     def unique_id(self):
         """Return Unique ID string."""
-        return f"lares_output_{self._idx}"
+        return f"lares_partition_{self._idx}"
 
     @property
     def name(self):
@@ -173,8 +173,8 @@ class LaresPartition(CoordinatorEntity, BinarySensorEntity):
     @property
     def available(self):
         """Return True if entity is available."""
-        return self._coordinator.data[self._idx]["type"] != ZONE_STATUS_NOT_USED
+        return True
 
     @property
     def enabled(self):
-        return self._coordinator.data[self._idx]["type"] != ZONE_STATUS_NOT_USED
+        return True
