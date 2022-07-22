@@ -108,7 +108,7 @@ class LaresBase:
         parts = response.xpath("/partitionsDescription/partition")
         res = []
         for part in parts:
-            _LOGGER.info("part {p}".format(p=part))
+            _LOGGER.info("part {p}".format(p=part.text))
             if part.text:
                 res.append(part.text)
         return res
