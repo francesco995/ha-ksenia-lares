@@ -183,7 +183,7 @@ class LaresPartition(CoordinatorEntity, BinarySensorEntity):
     @property
     def is_on(self):
         """Return true if the binary sensor is on."""
-        return self._coordinator.data[self._idx] == "ARMED"
+        return self._coordinator.data[self._idx] == "ARMED" || self._coordinator.data[self._idx] == "ARMED_IMMEDIATE"
 
     @property
     def unique_id(self):
