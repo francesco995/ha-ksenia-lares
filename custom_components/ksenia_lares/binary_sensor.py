@@ -137,6 +137,7 @@ class LaresSensor(CoordinatorEntity, BinarySensorEntity):
         self._coordinator = coordinator
         self._description = description
         self._idx = idx
+        self.entity_id = f"binary_sensor.lares.sensor.{idx}"
         self._attr_unique_id = f"binary_sensor.lares.sensor.{idx}"
 
     @property
@@ -208,10 +209,6 @@ class LaresOutput(CoordinatorEntity, BinarySensorEntity):
         self._idx = idx
         self._attr_unique_id = f"binary_sensor.lares.output.{idx}"
 
-    @property
-    def unique_id(self):
-        """Return Unique ID string."""
-        return self._idx
 
     @property
     def name(self):
