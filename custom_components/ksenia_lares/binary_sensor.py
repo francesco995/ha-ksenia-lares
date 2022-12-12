@@ -101,7 +101,7 @@ async def async_setup_entry(hass, config_entry, async_add_devices):
         return True
 
     async_add_devices(
-        LaresPartition(coordinator_partitions, idx, partitions_descriptions[idx])
+        LaresPartition(coordinator_partitions, idx, f"lares.partition.{partitions_descriptions[idx]}")
         for idx, zone in
         filter(filter_active_partition, enumerate(coordinator_partitions.data))
     )
@@ -122,7 +122,7 @@ async def async_setup_entry(hass, config_entry, async_add_devices):
         return output[1]["type"] != ZONE_STATUS_NOT_USED
 
     async_add_devices(
-        LaresOutput(coordinator_outputs, idx, outputs_descriptions[idx])
+        LaresOutput(coordinator_outputs, idx, f"lares.output.{outputs_descriptions[idx]}")
         for idx, out in filter(filter_active_output, enumerate(coordinator_outputs.data))
     )
 
