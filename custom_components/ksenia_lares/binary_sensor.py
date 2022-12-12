@@ -101,7 +101,7 @@ async def async_setup_entry(hass, config_entry, async_add_devices):
         return True
 
     async_add_devices(
-        LaresPartition(coordinator_partitions, f"lares.partition.{idx}", partitions_descriptions[idx])
+        LaresPartition(coordinator_partitions, idx, partitions_descriptions[idx])
         for idx, zone in
         filter(filter_active_partition, enumerate(coordinator_partitions.data))
     )
@@ -179,16 +179,12 @@ class LaresPartition(CoordinatorEntity, BinarySensorEntity):
         self._coordinator = coordinator
         self._description = description
         self._idx = idx
+        self._attr_unique_id = f"lares.partition.{idx}"
 
     @property
     def is_on(self):
         """Return true if the binary sensor is on."""
         return (self._coordinator.data[self._idx] == "ARMED" or self._coordinator.data[self._idx] == "ARMED_IMMEDIATE")
-
-    @property
-    def unique_id(self):
-        """Return Unique ID string."""
-        return self._idx
 
     @property
     def name(self):
