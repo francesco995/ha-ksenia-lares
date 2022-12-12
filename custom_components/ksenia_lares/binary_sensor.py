@@ -137,8 +137,8 @@ class LaresSensor(CoordinatorEntity, BinarySensorEntity):
         self._coordinator = coordinator
         self._description = description
         self._idx = idx
-        self.entity_id = f"binary_sensor.lares.sensor.{idx}"
-        self._attr_unique_id = f"binary_sensor.lares.sensor.{idx}"
+        self.entity_id = f"binary_sensor.lares.sensor.{description}"
+        self._attr_unique_id = f"binary_sensor.lares.sensor.{description}"
 
     @property
     def name(self):
@@ -176,7 +176,8 @@ class LaresPartition(CoordinatorEntity, BinarySensorEntity):
         self._coordinator = coordinator
         self._description = description
         self._idx = idx
-        self._attr_unique_id = f"binary_sensor.lares.partition.{idx}"
+        self._attr_unique_id = f"binary_sensor.lares.partition.{description}"
+        self.entity_id = f"binary_sensor.lares.partition.{description}"
 
     @property
     def is_on(self):
@@ -207,7 +208,8 @@ class LaresOutput(CoordinatorEntity, BinarySensorEntity):
         self._coordinator = coordinator
         self._description = description
         self._idx = idx
-        self._attr_unique_id = f"binary_sensor.lares.output.{idx}"
+        self._attr_unique_id = f"binary_sensor.lares.output.{description}"
+        self.entity_id = f"binary_sensor.lares.output.{description}"
 
 
     @property
