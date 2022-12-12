@@ -101,7 +101,7 @@ async def async_setup_entry(hass, config_entry, async_add_devices):
         return True
 
     async_add_devices(
-        LaresPartition(coordinator_partitions, idx, f"lares.partition.{partitions_descriptions[idx]}")
+        LaresPartition(coordinator_partitions, f"lares.partition.{idx}", f"lares.partition.{partitions_descriptions[idx]}")
         for idx, zone in
         filter(filter_active_partition, enumerate(coordinator_partitions.data))
     )
