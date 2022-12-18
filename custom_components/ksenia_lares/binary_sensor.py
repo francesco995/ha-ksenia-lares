@@ -96,15 +96,9 @@ async def async_setup_entry(hass, config_entry, async_add_devices):
 
     await coordinator_partitions.async_refresh()
 
-    def filter_active_partition(partition):
-        _LOGGER.info("filter_active_partition %s", partition)
-        return partition[1]["type"] != ZONE_STATUS_NOT_USED
-
-    async_add_devices(
-        LaresPartition(coordinator_partitions, idx, partitions_descriptions[idx])
-        for idx, zone in
-        filter(filter_active_partition, enumerate(coordinator_partitions.data))
-    )
+    for idx, zone in enumerate(coordinator_partitions.data):
+        if partitions_descriptions[idx]:
+            async_add_devices([LaresPartition(coordinator_partitions, idx, partitions_descriptions[idx])])
 
     # OUTPUTS
     coordinator_outputs = DataUpdateCoordinator(
