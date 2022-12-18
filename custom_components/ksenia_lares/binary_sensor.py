@@ -208,8 +208,8 @@ class LaresOutput(CoordinatorEntity, BinarySensorEntity):
         self._coordinator = coordinator
         self._description = description
         self._idx = idx
-        self._attr_unique_id = f"binary_sensor.lares.output.{description}"
-        self.entity_id = f"binary_sensor.lares.output.{description}"
+        self._attr_unique_id = f"binary_sensor.lares.output.{idx}"
+        self.entity_id = f"binary_sensor.lares.output.{idx}"
 
 
     @property
