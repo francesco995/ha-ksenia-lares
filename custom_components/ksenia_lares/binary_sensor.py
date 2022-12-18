@@ -98,7 +98,7 @@ async def async_setup_entry(hass, config_entry, async_add_devices):
 
     def filter_active_partition(partition):
         _LOGGER.info("filter_active_partition %s", partition)
-        return True
+        return partition[1]["type"] != ZONE_STATUS_NOT_USED
 
     async_add_devices(
         LaresPartition(coordinator_partitions, idx, partitions_descriptions[idx])
