@@ -143,7 +143,7 @@ class LaresSensor(CoordinatorEntity, BinarySensorEntity):
     @property
     def name(self):
         """Return the name of this camera."""
-        return f"lares_{self._description}"
+        return self._description
 
     @property
     def is_on(self):
